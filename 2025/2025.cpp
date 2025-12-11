@@ -1,20 +1,71 @@
-// 2025.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
 
-int main()
-{
-    std::cout << "Hello World!\n";
+enum class Direction {
+	Left,
+	Right
+};
+
+struct Instruction {
+	Direction direction;
+	int value;
+};
+
+int main() {
+	std::vector<Instruction> instructions;
+	std::string line;
+	int dialValue = 50;
+	int zeroCount = 0;
+
+	std::cout << "Paste all instructions and press Enter twice:" << std::endl;
+
+	while (std::getline(std::cin, line)) {
+		if (line.empty()) {
+			break;  // Stop on empty line (double Enter)
+		}
+		char dirChar = line[0];
+		int value = std::stoi(line.substr(1));
+
+		Direction direction = (dirChar == 'L') ? Direction::Left : Direction::Right;
+		instructions.push_back({ direction, value });
+	}
+
+	for (const auto& instruction : instructions) {
+		auto val = instruction.value % 100;
+		auto nTurns = instruction.value / 100;
+
+		if (instruction.direction == Direction::Left) {
+			int computedValue = dialValue - val;
+			if (computedValue == 0) {
+				zeroCount++;
+				dialValue = 0;
+			}
+			else if (computedValue < 0) {
+				dialValue = 100 + computedValue;
+			}
+			else {
+				dialValue = computedValue;
+			}
+		}
+		else if (instruction.direction == Direction::Right) {
+			int computedValue = dialValue + val;
+			if (computedValue == 100) {
+				zeroCount++;
+				dialValue = 0;
+			}
+			else if (computedValue >= 100) {
+				dialValue = computedValue - 100;
+			}
+			else {
+				dialValue = computedValue;
+			}
+		}
+
+	}
+
+	std::cout << "The password is " << zeroCount << std::endl;
+
+	return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
