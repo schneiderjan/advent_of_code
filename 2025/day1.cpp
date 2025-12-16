@@ -13,7 +13,7 @@ struct Instruction {
 	int value;
 };
 
-int main() {
+void day1() {
 	std::vector<Instruction> instructions;
 	std::string line;
 	int dialValue = 50;
@@ -66,6 +66,4 @@ int main() {
 	}
 
 	std::cout << "The password is " << zeroCount << std::endl;
-
-	return 0;
 }
