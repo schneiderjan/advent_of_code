@@ -2,6 +2,7 @@
 
 void day1();
 void day2();
+void day3();
 void testHasRepeatingPattern();
 
 int main() {
@@ -15,9 +16,8 @@ int main() {
 	int day;
 	std::cout << "Advent of Code 2025" << std::endl;
 	std::cout << "Enter day number (1-25): ";
-	//std::cin >> day;
-	//std::cin.ignore(); // Clear newline from buffer
-	day = 2;
+	std::cin >> day;
+	std::cin.ignore(); // Clear newline from buffer
 
 	switch (day) {
 	case 1:
@@ -25,6 +25,9 @@ int main() {
 		break;
 	case 2:
 		day2();
+		break;
+	case 3:
+		day3();
 		break;
 	// Add more cases as you complete more days
 	default:
